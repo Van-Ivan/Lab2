@@ -7,172 +7,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Лаба_1
+namespace Lab2
 
 {
 
-    class Person
-    {
-
-        string name;
-        string suname;
-        DateTime birthDay;
-
-        public Person()
-        {
-            Random random = new Random();
-            name = "Пусто";
-            suname = "Пусто";
-            birthDay = new DateTime();
-        }
-
-        public Person(string name, string suname, DateTime birthDay)
-        {
-                this.name = name;
-                this.suname = suname;
-                this.birthDay = birthDay;
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string Suname
-        {
-            get { return suname; }
-            set { suname = value; }
-        }
-
-        public DateTime BirthDay
-        {
-            get { return birthDay; }
-            set { birthDay = value; }
-        }
-
-        public int BirthYear
-        {
-            get { return birthDay.Year; }
-            set { birthDay.AddYears(birthDay.Year - value); }
-        }
-
-        public string ToFullString() { return "Имя: " + name + "Фамилия: " + suname + "Дата рождения: " + birthDay; }
-
-        public string ToShortString() { return "Имя: " + name + "Фамилия: " + suname; }
-    }
-
     enum Frequency { Weekly, Monthly, Yearly }
-
-    class Article
-    {
-        public Person Author { get; set; }
-
-        public string Title { get; set; }
-
-        public double Top { get; set; }
-
-
-        public Article(Person author, string title, double top)
-        {
-            Author = author;
-            Title = title;
-            Top = top;
-        }
-
-        public Article()
-        {
-            Author = new Person();
-            Title = "Неизвестно";
-            Top = 0;
-        }
-
-        public string ToFullString() { return "Автор: " + Author.ToFullString() + "Название статьи: " + Title + "Рейтинг статьи: " + Top; }
-    }
-
-    class Magazine
-    {
-        string title;
-        Frequency period;
-        DateTime dateRelease;
-        int edition;
-        Article[] articlesInMagazine;
-
-        public Magazine()
-        {
-            title = "Неизвестно";
-            period = 0;
-            dateRelease = new DateTime(1);
-            edition = 0;
-            
-        }
-
-        public Magazine(string title, Frequency period, DateTime dateRelease, int edition)
-        {
-            this.title = title;
-            this.period = period;
-            this.dateRelease = dateRelease;
-            this.edition = edition;
-        }
-
-        public string Title { get { return title; } set { title = value; } }
-
-        public Frequency Period { get { return period; } set { period = value; } }
-
-        public DateTime DateRelease { get { return dateRelease; } set { dateRelease = value; } }
-
-        public int Edition { get { return edition; } set { edition = value; } }
-
-        public double AverageTop
-        {
-            get
-            {
-                double sum = 0;
-
-                for (int i = 0; i < articlesInMagazine.Length; i++)
-                {
-                    sum += articlesInMagazine[i].Top;
-                }
-                return sum/articlesInMagazine.Length;
-            }
-        }
-
-        public void AddArticles(params Article[] articles)
-        {
-            Article[] arr = new Article[(articlesInMagazine?.Length ?? 0) + articles.Length];
-
-            for (int i = 0; i < (articlesInMagazine?.Length ?? 0); i++)
-            {
-                arr[i] = articlesInMagazine[i];
-            }
-
-            for (int i = (articlesInMagazine?.Length ?? 0), j = 0; i < arr.Length; i++, j++)
-            {
-                arr[i] = articles[j];
-            }
-
-            articlesInMagazine = arr;
-        }
-
-        public string ToFullString() 
-        {
-            string catalogArticles = String.Empty;
-
-            for (int i = 0; i < articlesInMagazine.Length; i++)
-            {
-                catalogArticles += articlesInMagazine[i].Title + '\n';
-            }
-
-            return $"Название: {title}\nПериодичность: {period}\nДата релиза: {dateRelease}\nТираж номер: {edition}\nСписок статей:\n{catalogArticles}";
-        } 
-
-        public string ToShortString()
-        {
-            return $"Название: {title}\nПериодичность: {period}\nДата релиза: {dateRelease}\nТираж номер: {edition}\nСредний рейтинг статей: {Convert.ToString(AverageTop)}";
-        }
-    }
-
-
 
     internal class Program
 
@@ -181,6 +20,7 @@ namespace Лаба_1
         static void Main(string[] args)
 
         {
+
             //Создание 1 автора и его статей
             DateTime date1 = new DateTime(1989, 6, 6);
             Person author1 = new Person("Александр", "НеПушкин", date1);
@@ -211,6 +51,60 @@ namespace Лаба_1
 
             Console.WriteLine("-----------------------\n");
             Console.WriteLine(magazine.ToFullString());
+
+
+            //Дополнительное задание
+            //Console.WriteLine("Введите значение nrow и ncolomn через ; или : соответственно");
+            //string strToRead = Console.ReadLine();
+            //
+            //string[] arrStringToSplit = strToRead.Split(';', ':');
+            //
+            //int nrow = Convert.ToInt32(arrStringToSplit[0]);
+            //int ncolomn = Convert.ToInt32(arrStringToSplit[1]);
+            //
+            //Article[] arr1 = new Article[nrow * ncolomn];
+            //Article[,] arr2 = new Article[nrow, ncolomn];
+            //Article[][] arr3 = new Article[nrow][];
+            //
+            //Random r = new Random();
+            //
+            //int timeBegin, timeEnd;
+            //
+            ////Измерение времени для одномерного массива
+            //timeBegin = Environment.TickCount;
+            //
+            //for (int i = 0; i < arr1.Length; i++)
+            //{
+            //    arr1[i] = new Article();
+            //    arr1[i].Title = $"Название {r.Next(11)}";
+            //}
+            //
+            //timeEnd = Environment.TickCount;
+            //
+            //int time1 = timeEnd - timeBegin;
+            //
+            ////Измерение времени для прямоугольного массива
+            //timeBegin = Environment.TickCount;
+            //
+            //for (int i = 0; i < arr2.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < arr2.GetLength(1); j++)
+            //    {
+            //        arr2[i, j] = new Article();
+            //        arr2[i, j].Title = $"Название {r.Next(11)}";
+            //    }
+            //}
+            //
+            //timeEnd = Environment.TickCount;
+            //
+            //int time2 = timeEnd - timeBegin;
+            //
+            ////Измерение времени для зубчатого массива
+            //
+            //Console.WriteLine($"Время выполнения операций для одномерного массива: {time1}\n" +
+            //    $"Время выполнения операций для прямоугольного массива: {time2}");
+
+
         }
 
     }
