@@ -49,62 +49,67 @@ namespace Lab2
             magazine.DateRelease = date1;
             magazine.Period = Frequency.Monthly;
 
-            Console.WriteLine("-----------------------\n");
+            Console.WriteLine("-----------------------\nДополнительное задание\n");
             Console.WriteLine(magazine.ToFullString());
 
 
+
             //Дополнительное задание
-            //Console.WriteLine("Введите значение nrow и ncolomn через ; или : соответственно");
-            //string strToRead = Console.ReadLine();
-            //
-            //string[] arrStringToSplit = strToRead.Split(';', ':');
-            //
-            //int nrow = Convert.ToInt32(arrStringToSplit[0]);
-            //int ncolomn = Convert.ToInt32(arrStringToSplit[1]);
-            //
-            //Article[] arr1 = new Article[nrow * ncolomn];
-            //Article[,] arr2 = new Article[nrow, ncolomn];
-            //Article[][] arr3 = new Article[nrow][];
-            //
-            //Random r = new Random();
-            //
-            //int timeBegin, timeEnd;
-            //
-            ////Измерение времени для одномерного массива
-            //timeBegin = Environment.TickCount;
-            //
-            //for (int i = 0; i < arr1.Length; i++)
-            //{
-            //    arr1[i] = new Article();
-            //    arr1[i].Title = $"Название {r.Next(11)}";
-            //}
-            //
-            //timeEnd = Environment.TickCount;
-            //
-            //int time1 = timeEnd - timeBegin;
-            //
-            ////Измерение времени для прямоугольного массива
-            //timeBegin = Environment.TickCount;
-            //
-            //for (int i = 0; i < arr2.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < arr2.GetLength(1); j++)
-            //    {
-            //        arr2[i, j] = new Article();
-            //        arr2[i, j].Title = $"Название {r.Next(11)}";
-            //    }
-            //}
-            //
-            //timeEnd = Environment.TickCount;
-            //
-            //int time2 = timeEnd - timeBegin;
-            //
-            ////Измерение времени для зубчатого массива
-            //
-            //Console.WriteLine($"Время выполнения операций для одномерного массива: {time1}\n" +
-            //    $"Время выполнения операций для прямоугольного массива: {time2}");
+            Console.WriteLine("Введите значение nrow и ncolomn через ; или : соответственно");
+            string strToRead = Console.ReadLine();
+            string[] arrStringToSplit = strToRead.Split(';', ':');
+            int nrow = Convert.ToInt32(arrStringToSplit[0]);
+            int ncolomn = Convert.ToInt32(arrStringToSplit[1]);
+            Console.WriteLine($"Количество столбцов: {ncolomn}, количество строк: {nrow}");
 
+            Article[] arr1 = new Article[nrow * ncolomn];
+            Article[,] arr2 = new Article[nrow, ncolomn];
+            Article[][] arr3 = new Article[nrow][];
+            Random r = new Random();
+            int timeBegin, timeEnd;
+            
+            //Измерение времени для одномерного массива
+            timeBegin = Environment.TickCount;
+            
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                arr1[i] = new Article();
+                arr1[i].Title = $"Название {r.Next(11)}";
+            }
+            
+            timeEnd = Environment.TickCount;
+            Console.WriteLine($"Время выполнения операций для одномерного массива: {timeEnd - timeBegin} миллисекунд");
+            
+            //Измерение времени для прямоугольного массива
+            timeBegin = Environment.TickCount;
+            
+            for (int i = 0; i < arr2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr2.GetLength(1); j++)
+                {
+                    arr2[i, j] = new Article();
+                    arr2[i, j].Title = $"Название {r.Next(11)}";
+                }
+            }
+            
+            timeEnd = Environment.TickCount;
+            Console.WriteLine($"Время выполнения операций для прямоугольного массива: {timeEnd - timeBegin} миллисекунд");
 
+            //Измерение времени для зубчатого массива
+            timeBegin = Environment.TickCount;
+
+            for (int i = 0; i < nrow; i++)
+            {
+                arr3[i] = new Article[ncolomn];
+                for (int j = 0; j < ncolomn; j++)
+                {
+                    arr3[i][j] = new Article();
+                    arr3[i][j].Title = $"Название {r.Next(11)}";
+                }
+            }
+
+            timeEnd = Environment.TickCount;
+            Console.WriteLine($"Время выполнения операций для зубчатого массива: {timeEnd - timeBegin} миллисекунд");
         }
 
     }

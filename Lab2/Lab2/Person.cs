@@ -48,7 +48,7 @@ namespace Lab2
             public int BirthYear
             {
                 get { return birthDay.Year; }
-                set { birthDay.AddYears(birthDay.Year - value); }
+                set { birthDay.AddYears(value - birthDay.Year); }
             }
 
             public string ToFullString() { return "Имя: " + name + "Фамилия: " + suname + "Дата рождения: " + birthDay; }
