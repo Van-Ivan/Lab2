@@ -43,6 +43,7 @@ namespace Lab2
         {
             get
             {
+                return articlesInMagazine.Average(article => article.Top);
                 double sum = 0;
 
                 for (int i = 0; i < articlesInMagazine.Length; i++)
@@ -56,7 +57,8 @@ namespace Lab2
         public void AddArticles(params Article[] articles)
         {
             Article[] arr = new Article[(articlesInMagazine?.Length ?? 0) + articles.Length];
-
+            //Array.Resize(ref articlesInMagazine, )
+            
             for (int i = 0; i < (articlesInMagazine?.Length ?? 0); i++)
             {
                 arr[i] = articlesInMagazine[i];
@@ -73,13 +75,14 @@ namespace Lab2
         public string ToFullString()
         {
             string catalogArticles = String.Empty;
+            StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < articlesInMagazine.Length; i++)
             {
-                catalogArticles += articlesInMagazine[i].Title + '\n';
+                sb.AppendLine(articlesInMagazine[i].Title);// +Environment.NewLine;
             }
-
-            return $"Название: {title}\nПериодичность: {period}\nДата релиза: {dateRelease}\nТираж номер: {edition}\nСписок статей:\n{catalogArticles}";
+            
+            return $"Название: {title}\nПериодичность: {period}\nДата релиза: {dateRelease}\nТираж номер: {edition}\nСписок статей:\n{sb.ToString()}";
         }
 
         public string ToShortString()
